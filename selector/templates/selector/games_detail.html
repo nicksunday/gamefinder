@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Name: {{ object.name }}</h1>
+
+<p><strong>Supports {{ object.minplayers }} - {{ object.maxplayers }} players.</strong></p>
+
+<style>
+img.cover {
+	height: 25%;
+	width: 25%;
+}
+</style>
+  <p></p>
+  <img class="cover" src="{{ object.thumbnail }}" width="150" height="150">
+  <p></p>
+  {% autoescape off %}
+  <p><strong>Description:</strong> {{ object.description |safe }}</p>
+  {% endautoescape %}
+
+{% endblock %}
