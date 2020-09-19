@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
+#from django.http import HttpResponseRedirect
 from django.views import generic
 from .models import Artists, Categories, Designers, Families, GameArtists, GameCategories, GameDesigners, GameFamilies, GameMechanics, GamePublishers, GameSubdomains, Games, Mechanics, Publishers, Subdomains
 from .forms import GameSelectionForm
@@ -22,13 +23,14 @@ class GamesListView(generic.ListView):
 class GamesDetailView(generic.DetailView):
     model = Games
 
-def game_selection_view(request):
+def game_search_view(request):
     if request.method == 'POST':
         form = GameSelectionForm(request.POST)
         if form.is_valid():
-            category = form.cleaned_data['category']
-            print(category.category)
-            return HttpResponseRedirect('/selection/')
+            categories = form.cleaned_data['categories']
+            print(f'{len(categories)} categories')
+            for i in categories: print(f'{i.category}')
+            return redirect('/selector/search/', categories)
     else:
         form = GameSelectionForm()
 

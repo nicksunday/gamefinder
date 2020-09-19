@@ -14,7 +14,7 @@ class Artists(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{name}'
+        return f'{self.name}'
 
     class Meta:
         managed = False
@@ -108,7 +108,7 @@ class Designers(models.Model):
     designer = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{designer}'
+        return f'{self.designer}'
 
     class Meta:
         managed = False
@@ -166,7 +166,7 @@ class Families(models.Model):
     family = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{family}'
+        return f'{self.family}'
 
     class Meta:
         managed = False
@@ -298,7 +298,7 @@ class Mechanics(models.Model):
     mechanic = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{mechanic}'
+        return f'{self.mechanic}'
 
     class Meta:
         managed = False
@@ -312,7 +312,7 @@ class Publishers(models.Model):
     publisher = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{publisher}'
+        return f'{self.publisher}'
 
     class Meta:
         managed = False
@@ -326,7 +326,7 @@ class Subdomains(models.Model):
     subdomain = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{subdomain}'
+        return f'{self.subdomain}'
 
     class Meta:
         managed = False
