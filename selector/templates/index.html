@@ -4,5 +4,9 @@
   <h1>Board Game Selector Home</h1>
   <p>Welcome to Board Game Selector, a website developed by <em>Nick Sunday</em>!</p>
   <h3>This Board Game Collection Has {{ num_games }} Games</h3>
-  <button onclick=location.href="{% url 'search' %}">Start Finding New Games</button>
+  <div id="background-button">
+    <div class="button-base">
+      <button class="get-started" onclick="location.href={% url 'search' %}">Start Finding New Games</button>
+    </div>
+  </div>
 {% endblock %}

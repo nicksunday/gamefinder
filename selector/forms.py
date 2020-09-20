@@ -1,7 +1,7 @@
 from django import forms
 from .models import *
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Column, Field
+#from crispy_forms.helper import FormHelper
+#from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Column, Field
 
 class GameSelectionForm(forms.Form):
     all_artists = Artists.objects.all()
