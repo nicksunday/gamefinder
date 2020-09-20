@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 
-{% load crispy_forms_tags %}
-
 {% block content %}
 
+  <h2>Search for your next boardgame!</h2>
+  <h6 style="color: blue">You will be provided with up to 5 board games based on your selections.</h6>
+  <h6 style="color: blue">If nothing is selected, you will see the top 5 board games from boardgamegeek.</h6>
+  <h8 style="color: blue"><i>All choices are optional.</i></h8>
   <p></p>
-  <form action="/selector/search/" method="POST">
+  <form action="{% url 'search' %}" method="POST">
 	  {% csrf_token %}
-	  {{ form|crispy }}
-	  <input type="submit" value="Search">
+	  {{ form.as_p }}
+	  <p><input class="btn btn-space" type="submit" value="Search"></p>
   </form>
+
 
 {% endblock %}
