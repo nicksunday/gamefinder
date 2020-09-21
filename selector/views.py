@@ -1,8 +1,9 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect, reverse
 from django.views import generic
-from .models import Artists, Categories, Designers, Families, GameArtists, GameCategories, GameDesigners, GameFamilies, GameMechanics, GamePublishers, GameSubdomains, Games, Mechanics, Publishers, Subdomains
+#from .models import Artists, Categories, Designers, Families, GameArtists, GameCategories, GameDesigners, GameFamilies, GameMechanics, GamePublishers, GameSubdomains, Games, Mechanics, Publishers, Subdomains
 from .forms import GameSelectionForm
+from .models import *
 
 # Create your views here.
 def index(request):
@@ -39,37 +40,55 @@ def game_search_view(request):
 
             games = Games.objects.all()
             if artist:
+                SearchedTerms.objects.create(term=artist.name)
                 games = games.filter(artists__name=artist.name)
             if designer:
+                SearchedTerms.objects.create(term=designer.designer)
                 games = games.filter(designers__designer=designer.designer)
             if publisher:
+                SearchedTerms.objects.create(term=publisher.publisher)
                 games = games.filter(publishers__publisher=publisher.publisher)
             if categories:
+                for category in categories:
+                    SearchedTerms.objects.create(term=category.category)
                 games = games.filter(categories__in=categories)
             if families:
+                for family in families:
+                    SearchedTerms.objects.create(term=family.family)
                 games = games.filter(families__in=families)
             if mechanics:
+                for mechanic in mechanics:
+                    SearchedTerms.objects.create(term=mechanic.mechanic)
                 games = games.filter(mechanics__in=mechanics)
             if subdomains:
+                for subdomain in subdomains:
+                    SearchedTerms.objects.create(term=subdomain.subdomain)
                 games = games.filter(subdomains__in=subdomains)
 
             if min_player_count and max_player_count:
+                min_str = f'{min_player_count} Player Games'
+                max_str = f'{max_player_count} Player Games'
+                SearchedTerms.objects.create(term=min_str)
+                SearchedTerms.objects.create(term=max_str)
                 if max_player_count < min_player_count:
-                    ValidationError(_('Min Players is more than Max Players'))
+                    games = games.filter(Q(minplayers__lte=max_player_count) & Q(maxplayers__gte=min_player_count))
                 else:
-                    games = games.filter(Q(minplayers=min_player_count) & Q(maxplayers=max_player_count))
+                    games = games.filter(Q(minplayers__lte=min_player_count) & Q(maxplayers__gte=max_player_count))
             elif min_player_count:
-                games = games.filter(minplayers=min_player_count)
+                min_str = f'{min_player_count} Player Games'
+                SearchedTerms.objects.create(term=min_str)
+                games = games.filter(Q(minplayers__lte=min_player_count) & Q(maxplayers__gte=min_player_count))
             elif max_player_count:
-                games = games.filter(maxplayers=max_player_count)
+                max_str = f'{max_player_count} Player Games'
+                SearchedTerms.objects.create(term=max_str)
+                games = games.filter(maxplayers__gte=max_player_count)
 
+            if games:
+                for game in games[:5]:
+                    SuggestedGames.objects.create(game_id=game.game_id)
 
             request.session['__selection_data'] = list(games.order_by('game_id').values()[:5])
 
-            # print(f'{len(categories)} categories')
-            # for i in categories: print(f'{i.category}')
-            # request.session['__selection_data'] = list(categories.values())
-            
             return redirect('game_selection_view')
     else:
         form = GameSelectionForm()

@@ -306,6 +306,18 @@ class Mechanics(models.Model):
         verbose_name = 'Mechanic'
         verbose_name_plural = 'Mechanics'
 
+class PopularMechanics(models.Model):
+    popular_mechanic_id = models.AutoField(primary_key=True)
+    mechanic = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.mechanic}'
+
+    class Meta:
+        managed = False
+        db_table = 'popular_mechanics'
+        verbose_name = 'Popular Mechanic'
+        verbose_name_plural = 'Popular Mechanics'
 
 class Publishers(models.Model):
     publisher_id = models.IntegerField(primary_key=True)
@@ -320,6 +332,18 @@ class Publishers(models.Model):
         verbose_name = 'Publisher'
         verbose_name_plural = 'Publishers'
 
+class SearchedTerms(models.Model):
+    term = models.CharField(max_length=100, blank=True, null=True)
+    term_id = models.AutoField(primary_key=True)
+
+    def __str__(self):
+        return f'{self.term}'
+
+    class Meta:
+        managed = False
+        db_table = 'searched_terms'
+        verbose_name = 'Searched Term'
+        verbose_name_plural = 'Searched Terms'
 
 class Subdomains(models.Model):
     subdomain_id = models.IntegerField(primary_key=True)
@@ -333,3 +357,14 @@ class Subdomains(models.Model):
         db_table = 'subdomains'
         verbose_name = 'Subdomain'
         verbose_name_plural = 'Subdomains'
+
+class SuggestedGames(models.Model):
+    #suggested_game_id = models.IntegerField(primary_key=True)
+    suggested_game_id = models.AutoField(primary_key=True)
+    game = models.ForeignKey('Games', on_delete=models.SET_NULL, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'suggested_games'
+        verbose_name = 'Suggested Game'
+        verbose_name_plural = 'Suggested Games'

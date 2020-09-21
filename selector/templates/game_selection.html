@@ -9,16 +9,21 @@ img.cover {
 }
 </style>
 
+{% if games %}
   <ul>
   <h3>I think you would like these games</h3>
+  <p><button onclick="location.href={% url 'search' %}">Choose Again</button></p>
     {% for game in games %}
       <li>
-	      <h4><a href="/selector/game/{{ game.game_id }}">{{ game.name }}</a></h4>
+	      <h4><a href="/game/{{ game.game_id }}">{{ game.name }}</a></h4>
 	      <p><img class="cover" src="{{ game.thumbnail }}" width="150" height="150"></p>
 	      <p>{{ game.description |safe }}</p>
       </li>
     {% endfor %}
   </ul>
+{% else %}
+  <h3>Your search criteria did not return any games.</h3>
+{% endif %}
 
-  <button onclick="location.href={% url 'search' %}">Choose Again</button>
+<p><button onclick="location.href={% url 'search' %}">Choose Again</button></p>
 {% endblock %}
