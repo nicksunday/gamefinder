@@ -86,6 +86,8 @@ def game_search_view(request):
             if games:
                 for game in games[:5]:
                     SuggestedGames.objects.create(game_id=game.game_id)
+                    for mechanic in game.mechanics.all():
+                        PopularMechanics.objects.create(mechanic=mechanic.mechanic)
 
             request.session['__selection_data'] = list(games.order_by('game_id').values()[:5])
 
