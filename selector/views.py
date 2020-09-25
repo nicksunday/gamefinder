@@ -89,7 +89,7 @@ def game_search_view(request):
                     for mechanic in game.mechanics.all():
                         PopularMechanics.objects.create(mechanic=mechanic.mechanic)
 
-            request.session['__selection_data'] = list(games.order_by('game_id').values()[:5])
+            request.session['__selection_data'] = list(games.order_by('game_id').values().distinct()[:5])
 
             return redirect('game_selection_view')
     else:
@@ -99,3 +99,6 @@ def game_search_view(request):
 
 def game_selection_view(request):
     return render(request, 'game_selection.html', {'games': request.session['__selection_data']})
+
+def data_visualization_view(request):
+    return render(request, 'data_visualization.html')

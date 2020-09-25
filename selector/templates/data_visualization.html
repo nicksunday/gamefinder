@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Board Game Suggestion Visualization</h1>
+
+<style>
+input[type=checkbox] {
+  display: none;
+}
+
+.container img {
+  margin: 100px;
+  transition: transform 0.25s ease;
+  cursor: zoom-in;
+}
+
+input[type=checkbox]:checked ~ label > img {
+  transform: scale(2);
+  cursor: zoom-out;
+}
+
+</style>
+
+<div class="container">
+  <input type="checkbox" id="img1check">
+  <label for="img1check">
+    <img src="https://storage.googleapis.com/suggest_games_images/10%20Most%20Suggested%20Games.png" >
+  </label>
+</div>
+
+<div class="container">
+  <input type="checkbox" id="img2check">
+  <label for="img2check">
+    <img src="https://storage.googleapis.com/suggest_games_images/Most%20Common%20Game%20Mechanics%20Among%20All%20Suggested%20Games.png" >
+  </label>
+</div>
+
+<div class="container">
+  <input type="checkbox" id="img3check">
+  <label for="img3check">
+    <img src="https://storage.googleapis.com/suggest_games_images/Most%20Searched%20For%20Terms.png" >
+  </label>
+</div>
+
+{% endblock %}
