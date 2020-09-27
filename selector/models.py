@@ -359,7 +359,6 @@ class Subdomains(models.Model):
         verbose_name_plural = 'Subdomains'
 
 class SuggestedGames(models.Model):
-    #suggested_game_id = models.IntegerField(primary_key=True)
     suggested_game_id = models.AutoField(primary_key=True)
     game = models.ForeignKey('Games', on_delete=models.SET_NULL, blank=True, null=True)
 

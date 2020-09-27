@@ -1,7 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect, reverse
 from django.views import generic
-#from .models import Artists, Categories, Designers, Families, GameArtists, GameCategories, GameDesigners, GameFamilies, GameMechanics, GamePublishers, GameSubdomains, Games, Mechanics, Publishers, Subdomains
 from .forms import GameSelectionForm
 from .models import *
 
